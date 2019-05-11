@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 创建DB对象 
+    var myDB = {
+      name: 'mydb2',
+      version: 2,
+      db: null 
+    };
+    function openDB(obj){
+      var request = window.indexedDB.open(obj.name, obj.version);
+      // // 注册error
+      request.onerror = function(e){
+        console.log('open fail-----')
+      }
+      // 注册success
+      request.onsuccess = function(e){
+        obj.db = e.target.result;
+        console.log('objectStore success---');
+      }
+      // 注册 upgradeneeded
+      request.onupgradeneeded = function(e){
+        console.log('111111');
+        // 获取db对象
+        var db = e.target.result;
+        // console.log(db);
+        // 创建 object store
+        var objectStore = db.createObjectStore('king of glory',{keyPath: 'author'});
+        // 添加数据  objectStore.put({})
+        objectStore.put({hero: '李白', author: '小明', pid: '111'});
+        objectStore.put({hero: '亚瑟', author: '小王', pid: '222'});
+        objectStore.put({hero: '后羿', author: '小红', pid: '333'});
+        objectStore.put({hero: '猴子', author: '小蓝', pid: '444'});
+        objectStore.put({hero: '妲己', author: '小黑', pid: '555'});
+      }
+    };
+    openDB(myDB);
+  </script>
+</body>
+</html>
