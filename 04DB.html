@@ -13,17 +13,7 @@
       name: 'mydb2',
       version: 2,
       db: null 
-    };
-    function openDB(obj){
-      var request = window.indexedDB.open(obj.name, obj.version);
-      // // 注册error
-      request.onerror = function(e){
-        console.log('open fail-----')
-      }
-      // 注册success
-      request.onsuccess = function(e){
-        obj.db = e.target.result;
-        console.log('objectStore success---');
+
       }
       // 注册 upgradeneeded
       request.onupgradeneeded = function(e){
